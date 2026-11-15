@@ -29,7 +29,13 @@
 
 1. **README**：README 是哪种语言，就用同语言的片段：把 `snippets/readme-section.<语言>.md` 的内容复制到 README 末尾、许可证一节之前，把 `PROJECT_NAME` 换成项目名。三份片段的内容有一处不同：英文和日文片段只放 Ko-fi 和 GitHub Sponsors 两个徽章（徽章就是 README 里那种小图标链接），微信、支付宝让读者去赞助页看；中文片段多放了微信和支付宝的二维码。片段里的链接和图片地址都是完整网址，所以放在 npm 包的 README 里也能正常显示。
 2. **npm 包**：把 `snippets/package-json-funding.json` 里的 `funding` 字段加到包的 `package.json`。要等这个包下一次发布，npm 上的版本才会带上它。
-3. **仓库的 Sponsor 按钮**：仓库在 Ishtar-Gate 组织下时不用做任何事。在其他账号下时，把 `snippets/FUNDING.yml` 复制到那个仓库的 `.github/FUNDING.yml`。
+3. **仓库的 Sponsor 按钮**：按钮要同时满足两个条件才会显示。
+   - 有赞助链接：仓库在 Ishtar-Gate 组织下时，自动用这个仓库的 `.github/FUNDING.yml`，不用做任何事；在其他账号下时，把 `snippets/FUNDING.yml` 复制到那个仓库的 `.github/FUNDING.yml`，并合并到默认分支。
+   - 打开仓库的 Sponsorships 开关：每个仓库各自一个开关，上面的默认设置管不到它，新仓库默认是关的。在仓库网页的 Settings → General → Features 里勾上「Sponsorships」，或者运行下面的命令（把 `OWNER` 和 `REPO` 换成仓库的账号名和仓库名）：
+
+     ```bash
+     gh api graphql -f query='mutation($id:ID!){updateRepository(input:{repositoryId:$id,hasSponsorshipsEnabled:true}){repository{hasSponsorshipsEnabled}}}' -f id=$(gh api repos/OWNER/REPO --jq .node_id)
+     ```
 4. **应用或网站里的赞助页**：把 `sponsor.json`、项目用到的 `locales/<语言>.json` 和 `qr/` 里的图片复制进项目，由项目自己的代码读取复制过去的文件。复制到项目里的哪个位置，按那个项目放静态文件和翻译文件的习惯定。不要在运行时从网上读取：桌面应用要能离线显示。
 5. 把这个项目加进下面的「已经用到的项目」，写明用到了哪些内容、复制到了项目里的哪些位置。以后改了这里，就按这张表逐个项目手动同步。
 
@@ -38,6 +44,7 @@
 | 项目 | 用到了什么 |
 | --- | --- |
 | H2H（桌面下载工具，仓库 `Ishtar-Gate/H2H`） | 应用里的「支持作者」页，图片和文字是在接入这里之前复制进去的，位置在 `app/src/app/configs/sponsor.config.ts`、`app/public/sponsor/` 和 `app/public/locales/*/sponsor.json` |
+| mantyke（Mantine 扩展组件，仓库 `Toshinaki/mantyke`） | README 片段：根目录 `README.md`（en）、`docs/README.zh-CN.md`（zh）、`packages/*/README.md`（en）；`packages/*/package.json` 的 `funding`；`.github/FUNDING.yml`；文档站的赞助页复制了 `sponsor.json`、`locales/en.json` 和 `qr/`，位置在 `apps/docs/sponsor/` |
 
 ## 改了之后要同步的地方
 
