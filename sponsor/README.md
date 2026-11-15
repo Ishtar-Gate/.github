@@ -44,7 +44,7 @@
 | 项目 | 用到了什么 |
 | --- | --- |
 | H2H（桌面下载工具，仓库 `Ishtar-Gate/H2H`） | 应用里的「支持作者」页，图片和文字是在接入这里之前复制进去的，位置在 `app/src/app/configs/sponsor.config.ts`、`app/public/sponsor/` 和 `app/public/locales/*/sponsor.json` |
-| mantyke（Mantine 扩展组件，仓库 `Toshinaki/mantyke`） | README 片段：根目录 `README.md`（en）、`docs/README.zh-CN.md`（zh）、`packages/*/README.md`（en）；`packages/*/package.json` 的 `funding`；`.github/FUNDING.yml`；文档站的赞助页复制了 `sponsor.json`、`locales/en.json` 和 `qr/`，位置在 `apps/docs/sponsor/` |
+| mantyke（Mantine 扩展组件，仓库 `Toshinaki/mantyke`） | README 片段：根目录 `README.md`（en）、`docs/README.zh-CN.md`（zh）、`packages/*/README.md`（en）；`packages/*/package.json` 的 `funding`；`.github/FUNDING.yml`；文档站的赞助页复制了 `sponsor.json`、`locales/en.json` 和 `qr/`，位置在 `apps/docs/sponsor/`。**自动同步**：mantyke 每周一的依赖升级工作流会运行 `.github/scripts/sync-sponsor.mjs`，下载这里的最新内容覆盖上面这些文件，有变化时放进每周的 PR，不用手动跟进 |
 
 ## 改了之后要同步的地方
 
