@@ -2,7 +2,7 @@
 // - profile/README.md：组织主页，只放不用翻译的内容（徽章、二维码、语言切换、作者网站）；
 // - profile/README.<语言>.md：各语言的完整介绍；
 // - sponsor/snippets/readme-section.<语言>.md：给各项目 README 用的「支持作者」「作者」两节。
-// 赞助方式都排成表格：第一行是徽章（能在浏览器打开的方式带链接），第二行是二维码，第三行是一句话说明（组织主页没有这一行）。
+// 赞助方式都排成表格：第一行是徽章（有网页的方式链到网页，只能扫码的方式链到二维码原图），第二行是二维码，第三行是一句话说明（组织主页没有这一行）。
 // 徽章只用在 Markdown 里，所以徽章的颜色和图标写在这个脚本里，不放进 sponsor.json；
 // 各项目自己渲染的页面（文档站、桌面应用）读同一份数据，按自己的方式显示。
 //
@@ -60,6 +60,10 @@ const badgeText = (text) => encodeURIComponent(text.replaceAll('-', '--').replac
 /** 链接最后一段，例如 https://ko-fi.com/ishtar_gate 的 ishtar_gate，作为徽章右半边显示的账号名 */
 const accountOf = (url) => new URL(url).pathname.split('/').filter(Boolean).at(-1);
 
+const qrUrl = (method) => `${RAW_BASE}/sponsor/${method.qr}`;
+
+// 徽章都带链接：有网页的方式链到网页，右半边显示账号名；只能扫码的方式链到二维码原图，
+// 方便在手机上保存后到 App 里识别。不加链接也不行：GitHub 会把没带链接的图片自动链到图片本身，点了只会打开徽章图片
 function badge(method, name) {
   const { color, logo } = BADGE_STYLES[method.id];
   const query = `?logo=${logo}&logoColor=white`;
@@ -67,7 +71,7 @@ function badge(method, name) {
     const image = `https://img.shields.io/badge/${badgeText(name)}-${badgeText(accountOf(method.url))}-${color}${query}`;
     return `[![${name}](${image})](${method.url})`;
   }
-  return `![${name}](https://img.shields.io/badge/${badgeText(name)}-${color}${query})`;
+  return `[![${name}](https://img.shields.io/badge/${badgeText(name)}-${color}${query})](${qrUrl(method)})`;
 }
 
 function orderedMethods(lang) {
@@ -86,7 +90,7 @@ function methodsTable(methods, { name, qrAlt, hint }) {
     row(methods.map(() => ':---:')),
     row(
       methods.map(
-        (method) => `<img src="${RAW_BASE}/sponsor/${method.qr}" width="${QR_WIDTH}" alt="${qrAlt(method)}">`
+        (method) => `<img src="${qrUrl(method)}" width="${QR_WIDTH}" alt="${qrAlt(method)}">`
       )
     ),
   ];
