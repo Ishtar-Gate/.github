@@ -1,0 +1,18 @@
+{
+  "publisher": {
+    "name": "多宝",
+    "intro": "「多宝」（英文名 Ishtar Gate）是我发布小工具的地方。",
+    "authorSite": "作者的个人网站",
+    "github": "多宝的 GitHub"
+  },
+  "methodsTitle": "请作者喝杯茶",
+  "methods": {
+    "kofi": { "name": "Ko-fi", "hint": "信用卡等，不用注册" },
+    "wechat": { "name": "微信", "hint": "微信扫码" },
+    "alipay": { "name": "支付宝", "hint": "支付宝扫码" },
+    "githubSponsors": {
+      "name": "GitHub Sponsors",
+      "hint": "适合已有 GitHub 账号的人，可以一次性或每月"
+    }
+  }
+}
